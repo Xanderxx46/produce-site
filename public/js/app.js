@@ -14,11 +14,15 @@
     return "0" + "00000" + String(plu).padStart(5, "0");
   }
 
-  function matches(item) {
-    if (activeCat !== "all" && item.cat !== activeCat) return false;
-    if (!query) return true;
-    const q = query.toLowerCase();
-    return item.name.toLowerCase().includes(q) || item.plu.includes(q);
+  function render() {
+    query = (search && search.value || "").trim();
+    const filtered = window.PLUSearch
+      ? window.PLUSearch.searchItems(items, query, activeCat)
+      : items;
+    countEl.textContent = String(filtered.length);
+    empty.classList.toggle("hidden", filtered.length > 0);
+    grid.innerHTML = filtered.map(cardHTML).join("");
+    wireBarcodes(grid);
   }
 
   function escapeHtml(s) {
@@ -63,16 +67,6 @@
     });
   }
 
-  function render() {
-    const filtered = items.filter(matches).sort((a, b) =>
-      a.name.localeCompare(b.name)
-    );
-    countEl.textContent = String(filtered.length);
-    empty.classList.toggle("hidden", filtered.length > 0);
-    grid.innerHTML = filtered.map(cardHTML).join("");
-    wireBarcodes(grid);
-  }
-
   catBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       activeCat = btn.dataset.cat;
@@ -81,14 +75,13 @@
     });
   });
 
-  let t;
-  search.addEventListener("input", () => {
-    clearTimeout(t);
-    t = setTimeout(() => {
-      query = search.value.trim();
-      render();
-    }, 120);
-  });
+  function onSearch() {
+    render();
+  }
+
+  search.addEventListener("input", onSearch);
+  search.addEventListener("search", onSearch);
+  search.addEventListener("keyup", onSearch);
 
   async function refreshAuthLink() {
     if (!editLink) return;

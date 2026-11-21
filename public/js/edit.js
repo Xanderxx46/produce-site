@@ -35,14 +35,7 @@
   }
 
   function filtered() {
-    if (!query) return items;
-    const q = query.toLowerCase();
-    return items.filter(
-      (i) =>
-        i.name.toLowerCase().includes(q) ||
-        i.plu.includes(q) ||
-        i.cat.includes(q)
-    );
+    return window.PLUSearch.searchItems(items, query, "all");
   }
 
   function render() {

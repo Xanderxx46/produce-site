@@ -1,0 +1,44 @@
+name: Android APK and backend checks
+on:
+  push:
+    branches: [jinx/plu-hub-android-desktop-admin]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm audit --audit-level=high
+      - run: npm run android:sync
+      - name: Build signed APK using existing runner Android tooling
+        env:
+          PLU_ANDROID_KEYSTORE: ${{ secrets.PLU_ANDROID_KEYSTORE }}
+          PLU_STORE_PASSWORD: ${{ secrets.PLU_ANDROID_STORE_PASSWORD }}
+        run: |
+          set -eu
+          export JAVA_HOME="$JAVA_HOME_21_X64"
+          export PATH="$JAVA_HOME/bin:$PATH"
+          export PLU_KEYSTORE_PATH="$RUNNER_TEMP/pluhub-release.p12"
+          trap 'rm -f "$PLU_KEYSTORE_PATH"' EXIT
+          umask 077
+          printf '%s' "$PLU_ANDROID_KEYSTORE" | base64 --decode > "$PLU_KEYSTORE_PATH"
+          test -s "$PLU_KEYSTORE_PATH"
+          cd android
+          chmod +x gradlew
+          ./gradlew --no-daemon --max-workers=2 assembleRelease
+          test -f app/build/outputs/apk/release/app-release.apk
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: PLU-Hub-Android
+          path: android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: error
+          retention-days: 14

@@ -1,70 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#1a0a2e" />
-  <title>PLU Hub — Walmart Produce</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <div class="ambient" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <div class="brand-lockup">
-      <p class="brand">PLU Hub</p>
-      <p class="tagline">Walmart produce codes — scan-ready reference</p>
-    </div>
-    <div class="header-tools">
-      <a id="edit-link" class="nav-link" href="/login.html?next=/edit">Login</a>
-      <label class="search-wrap">
-        <span class="sr-only">Search produce</span>
-        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input id="search" type="search" placeholder="Search name or PLU…" autocomplete="off" enterkeyhint="search" />
-      </label>
-    </div>
-  </header>
-
-  <nav class="cat-nav" aria-label="Categories">
-    <button class="cat-btn is-active" data-cat="all" type="button">All</button>
-    <button class="cat-btn" data-cat="fruit" type="button">Fruits</button>
-    <button class="cat-btn" data-cat="veg" type="button">Veg</button>
-    <button class="cat-btn" data-cat="dry" type="button">Dry</button>
-  </nav>
-
-  <main>
-    <p class="result-meta"><span id="count">0</span> items</p>
-    <div id="grid" class="produce-grid"></div>
-    <p id="empty" class="empty hidden">No matches. Try another name or PLU.</p>
-
-    <section class="labels-section" aria-labelledby="labels-heading">
-      <h2 id="labels-heading">Shelf label photos</h2>
-      <p class="labels-copy">Original Walmart produce strips used for this catalog.</p>
-      <div class="labels-grid">
-        <figure><img src="images/labels/apples-classic.png" alt="Apple variety PLU strip" loading="lazy" /><figcaption>Apples</figcaption></figure>
-        <figure><img src="images/labels/apples-honeycrisp.png" alt="Honeycrisp and specialty apples PLU strip" loading="lazy" /><figcaption>Specialty apples</figcaption></figure>
-        <figure><img src="images/labels/apple-cantaloupe.png" alt="Apple apricot and cantaloupe PLU strip" loading="lazy" /><figcaption>Apples &amp; melons</figcaption></figure>
-        <figure><img src="images/labels/bananas-onions.png" alt="Bananas onions and potatoes PLU strip" loading="lazy" /><figcaption>Bananas &amp; dry</figcaption></figure>
-        <figure><img src="images/labels/guava-mango.png" alt="Guava mango papaya PLU strip" loading="lazy" /><figcaption>Tropical fruit</figcaption></figure>
-        <figure><img src="images/labels/tropical-melons.png" alt="Passion fruit pineapple watermelon PLU strip" loading="lazy" /><figcaption>Melons &amp; tropical</figcaption></figure>
-        <figure><img src="images/labels/avocado-squash.png" alt="Avocado garlic squash PLU strip" loading="lazy" /><figcaption>Avocado &amp; squash</figcaption></figure>
-        <figure><img src="images/labels/potatoes-tomatoes.png" alt="Potatoes and tomatoes PLU strip" loading="lazy" /><figcaption>Potatoes &amp; tomatoes</figcaption></figure>
-        <figure><img src="images/labels/peppers-eggplant.png" alt="Peppers eggplant and greens PLU strips" loading="lazy" /><figcaption>Peppers &amp; eggplant</figcaption></figure>
-        <figure><img src="images/labels/lettuce-cabbage.png" alt="Lettuce cabbage cucumber PLU strips" loading="lazy" /><figcaption>Lettuce &amp; cabbage</figcaption></figure>
-        <figure><img src="images/labels/asparagus-greens.png" alt="Asparagus broccoli lettuce PLU strips" loading="lazy" /><figcaption>Asparagus &amp; greens</figcaption></figure>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>PLUs from store shelf labels · barcodes generated as UPC-A</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-  <script src="/js/session-keep.js"></script>
-  <script src="/js/app.js"></script>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#176548"><meta name="description" content="A quick produce PLU reference. Search, save favorites and show barcodes."><title>PLU Hub · Produce, without the guessing</title><link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="stylesheet" href="/css/styles.css"><script defer src="/js/bundle.js"></script></head>
+<body data-page="reader"><header class="site-header"><a class="brand" href="/" aria-label="PLU Hub home"><img src="/images/logo-256.png" width="40" height="40" alt=""><span>PLU<span class="brand-light">Hub</span></span></a><div class="header-actions"><a class="btn quiet tiny" id="android-download" href="/downloads/plu-hub-2.0.0.apk" download>Android app ↓</a><span class="live-label">THE PRODUCE REFERENCE</span><a class="btn quiet tiny" id="desktop-admin" href="/edit">Admin ↗</a><button class="btn quiet tiny" id="app-editor-button" hidden>Edit catalog</button></div></header>
+<main class="page"><section id="reader"><div class="hero"><div><p class="eyebrow">GOOD THINGS, EASY TO FIND</p><h1>Less searching.<br><span>More knowing.</span></h1><p class="hero-copy">Your produce codes, one quick lookup away.</p></div><div class="hero-seal" aria-hidden="true"><span>PLU</span><strong>4011</strong><small>GO BANANAS. OR DON'T.</small></div></div>
+<label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" autocomplete="off" placeholder="Search a name or PLU…" aria-label="Search produce name or PLU"><button type="button" id="clear-search" class="icon-btn" aria-label="Clear search">×</button></label>
+<div class="filter-row"><div class="categories" aria-label="Category filters"><button class="chip" data-cat="all" aria-pressed="true">Everything</button><button class="chip" data-cat="fruit" aria-pressed="false">Fruit</button><button class="chip" data-cat="veg" aria-pressed="false">Vegetables</button><button class="chip" data-cat="dry" aria-pressed="false">Pantry</button></div><button id="favorites-toggle" class="chip favorite-filter" aria-pressed="false">☆ Favorites</button></div>
+<div class="results-meta"><span id="count">Loading catalog…</span><div><span id="sync-status" class="sync-status">Connecting</span><button id="refresh" class="text-btn">Refresh</button></div></div>
+<div id="grid" class="produce-grid" aria-live="polite"></div><p id="empty" class="empty-state" hidden>No matching produce. Try a name or a four/five-digit code.</p>
+<footer class="reader-footer"><strong>A reference, not a promise at the register.</strong><p>PLUs can vary by size, variety and store. Check local labels. Unofficial reference, not affiliated with Walmart.</p></footer></section>
+<section id="native-editor" hidden></section></main>
+<nav id="native-nav" class="native-nav" hidden aria-label="App navigation"><button id="nav-browse">⌕<span>Browse</span></button><button id="nav-favorites">☆<span>Favorites</span></button><button id="nav-edit">✎<span>Edit</span></button></nav>
+<dialog id="detail-dialog" class="barcode-dialog"><div class="dialog-head"><h2 id="detail-name"></h2><button id="close-detail" class="icon-btn" aria-label="Close">×</button></div><p class="eyebrow">PRODUCE LOOKUP CODE</p><p id="detail-plu" class="detail-plu"></p><div id="detail-barcode"></div><p class="muted small">Verify the code and barcode with your store's scanner.</p></dialog>
+<dialog id="native-login"><form id="native-login-form"><div class="dialog-head"><h2>Edit the catalog</h2><button type="button" id="close-native-login" class="icon-btn" aria-label="Close">×</button></div><p class="muted">Use your existing administrator login. No extra enrollment.</p><label>Username<input name="username" required autocomplete="username" autocapitalize="none"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><p id="native-login-error" class="message" role="alert"></p><button type="submit" class="btn wide">Sign in</button><p class="small muted">For safety, the app does not save your password or login token across restarts.</p></form></dialog>
+</body></html>
